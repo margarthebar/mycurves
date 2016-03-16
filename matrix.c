@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 
 #include "matrix.h"
 
@@ -271,8 +272,21 @@ struct matrix * make_rotZ(double theta) {
   Returns: The correct 4x4 matrix that can be used 
   to generate the coefiecients for a bezier curve
   ====================*/
-//struct matrix * make_bezier() {
-//}
+struct matrix * make_bezier() {
+  struct matrix *m = new_matrix(4,4);
+  ident(m);
+  char s[] = "-1,3,-3,1,3,6,3,0,-3,3,0,0,1,0,0,0";
+  int r,c;
+  m->m[0][0] = atof(strtok(s,","));
+  for(r=0; r<4; r++){
+    for(c=0; c<4; c++){
+      if((c==0)&&(r!=0)){
+	m->m[r][c] = atof(strtok(NULL,","));
+      }
+    }
+  }
+  return m;
+}
 
 /*======== struct matrix * make_hermite()) ==========
   Inputs:   
@@ -281,8 +295,23 @@ struct matrix * make_rotZ(double theta) {
   The correct 4x4 matrix that can be used to generate
   the coefiecients for a hermite curve
   ====================*/
-//struct matrix * make_hermite() {
-//}
+struct matrix * make_hermite() {
+  struct matrix *m = new_matrix(4,4);
+  ident(m);
+
+  char s[] = "-2,-2,1,1,-3,3,-2,1,0,0,1,0,1,0,0,0";
+  int r,c;
+  m->m[0][0] = atof(strtok(s,","));
+  for(r=0; r<4; r++){
+    for(c=0; c<4; c++){
+      if((c==0)&&(r!=0)){
+	m->m[r][c] = atof(strtok(NULL,","));
+      }
+    }
+  }
+ 
+  return m;
+}
 
 /*======== struct matrix * generate_curve_coefs() ==========
   Inputs:   double p1
