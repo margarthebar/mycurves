@@ -285,6 +285,7 @@ struct matrix * make_bezier() {
       }
     }
   }
+  print_matrix(m);
   return m;
 }
 
@@ -298,8 +299,25 @@ struct matrix * make_bezier() {
 struct matrix * make_hermite() {
   struct matrix *m = new_matrix(4,4);
   ident(m);
-
-  char s[] = "-2,-2,1,1,-3,3,-2,1,0,0,1,0,1,0,0,0";
+  m->m[0][0] = 2;
+  m->m[0][1] = -2;
+  m->m[0][2] = 1;
+  m->m[0][3] = 1;
+  m->m[1][0] = -3;
+  m->m[1][1] = 3;
+  m->m[1][2] = -2;
+  m->m[1][3] = 1;
+  m->m[2][0] = 0;
+  m->m[2][1] = 0;
+  m->m[2][2] = 1;
+  m->m[2][3] = 0;
+  m->m[3][0] = 1;
+  m->m[3][1] = 0;
+  m->m[3][2] = 0;
+  m->m[3][3] = 0;
+ 
+  /*
+  char s[] = "2,-2,1,1,-3,3,-2,1,0,0,1,0,1,0,0,0";
   int r,c;
   m->m[0][0] = atof(strtok(s,","));
   for(r=0; r<4; r++){
@@ -309,7 +327,8 @@ struct matrix * make_hermite() {
       }
     }
   }
- 
+  */
+  print_matrix(m);
   return m;
 }
 
@@ -328,9 +347,22 @@ struct matrix * make_hermite() {
   Type determines whether the curve is bezier or hermite
   ====================*/
 
-/*
 struct matrix * generate_curve_coefs( double p1, double p2, 
 				      double p3, double p4, int type) {
+  struct matrix *m;
+  struct matrix *a = new_matrix(4,4);
+  a->lastcol = 1;
+  a->m[0][0] = p1;
+  a->m[1][0] = p2;
+  a->m[2][0] = p3;
+  a->m[3][0] = p4;
+  if(type==0){//hermite
+    m = make_hermite();
+  }else if(type==1){//bezier
+    m = make_bezier();
+  }
+  matrix_mult(m,a);
+  return a;
 }
-*/
+
 

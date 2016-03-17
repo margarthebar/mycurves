@@ -22,6 +22,7 @@ int main( int argc, char **argv ) {
   c.green = 0;
   c.blue = 255;
   add_circle(edges,200,200,100,0.001);
+  add_curve(edges,200,300,300,400,400,400,500,300,0.01,0);
   draw_lines(edges,s,c);
   display(s);
 
