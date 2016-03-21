@@ -24,15 +24,6 @@ line
 100 0 0 100 0 100
 display
 ident
-scale
-1.5 1.5 1.5
-apply
-display
-translate
-100 100 0
-apply
-display
-ident
 zrotate
 20
 xrotate

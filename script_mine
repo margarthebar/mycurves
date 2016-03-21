@@ -1,0 +1,30 @@
+circle
+250 250 200
+hermite
+50 250 500 250 450 250 500 250
+line
+50 250 0 450 250 0
+circle
+50 250 10
+circle
+450 250 10
+bezier
+250 50 350 150 150 350 250 450
+line
+250 50 0 350 150 0
+line
+350 150 0 150 350 0
+line
+150 350 0 250 450 0
+circle
+250 50 10
+circle
+350 150 10
+circle
+150 350 10
+circle
+250 450 10
+display
+save
+pic.png
+quit

@@ -147,6 +147,11 @@ void parse_file ( char * filename,
 	struct matrix *rotate = make_rotZ(args[0] * (M_PI/180));
 	matrix_mult(rotate,transform);
       }
+    }else{
+      if(strcmp(command,"save")==0){
+	printf("saving...\n");
+	save_extension(s,line);
+      }
       else if(strcmp(command,"apply")==0){
 	matrix_mult(transform,pm);
       }
@@ -156,13 +161,9 @@ void parse_file ( char * filename,
 	c.blue = 0;
 	c.green = 0;
 	draw_lines(pm,s,c);
+	//print_matrix(pm);
 	printf("display\n");
 	//display(s);
-      }
-    }else{
-      if(strcmp(command,"save")==0){
-	printf("saving...\n");
-	save_extension(s,line);
       }
       strcpy(command,line);
     }
