@@ -66,21 +66,23 @@ void add_curve( struct matrix *points,
 		double x3, double y3, 
 		double step, int type ) {
   struct matrix *xc = generate_curve_coefs(x0,x1,x2,x3,type);
-  printf("xc:\n");
-  print_matrix(xc);
-  printf("\n");
+  //printf("xc:\n");
+  //print_matrix(xc);
+  //printf("\n");
   struct matrix *yc = generate_curve_coefs(y0,y1,y2,y3,type);
-  printf("yc:\n");
-  print_matrix(yc);
-  printf("\n");
+  //printf("yc:\n");
+  //print_matrix(yc);
+  //printf("\n");
   double xi,yi,x,y,t;
   xi = x0;
   yi = y0;
+  //printf("x = %Gt^3 + %Gt^2 + %Gt + %G\n",xc->m[0][0],xc->m[1][0],xc->m[2][0],xc->m[3][0]);
+  //printf("y = %Gt^3 + %Gt^2 + %Gt + %G\n",yc->m[0][0],yc->m[1][0],yc->m[2][0],yc->m[3][0]);
   for(t=0; t< 1+step; t+=step){
     x = t*( t*( (xc->m[0][0] * t) + xc->m[1][0] ) + xc->m[2][0]) + xc->m[3][0];
     y = t*( t*( (yc->m[0][0] * t) + yc->m[1][0] ) + yc->m[2][0]) + yc->m[3][0];
     add_edge(points,xi,yi,0,x,y,0);
-    
+    //printf("(%G,%G)",x,y);
     xi = x;
     yi = y;
   }

@@ -280,7 +280,7 @@ struct matrix * make_bezier() {
   m->m[0][2] = -3;
   m->m[0][3] = 1;
   m->m[1][0] = 3;
-  m->m[1][1] = 6;
+  m->m[1][1] = -6;
   m->m[1][2] = 3;
   m->m[1][3] = 0;
   m->m[2][0] = -3;
@@ -303,7 +303,7 @@ struct matrix * make_bezier() {
     }
   }
   */
-  print_matrix(m);
+  //print_matrix(m);
   return m;
 }
 
@@ -324,7 +324,7 @@ struct matrix * make_hermite() {
   m->m[1][0] = -3;
   m->m[1][1] = 3;
   m->m[1][2] = -2;
-  m->m[1][3] = 1;
+  m->m[1][3] = -1;
   m->m[2][0] = 0;
   m->m[2][1] = 0;
   m->m[2][2] = 1;
@@ -346,7 +346,7 @@ struct matrix * make_hermite() {
     }
   }
   */
-  print_matrix(m);
+  //print_matrix(m);
   return m;
 }
 
@@ -368,16 +368,20 @@ struct matrix * make_hermite() {
 struct matrix * generate_curve_coefs( double p1, double p2, 
 				      double p3, double p4, int type) {
   struct matrix *m;
-  struct matrix *a = new_matrix(4,4);
+  struct matrix *a = new_matrix(4,1);
   a->lastcol = 1;
-  a->m[0][0] = p1;
-  a->m[1][0] = p2;
-  a->m[2][0] = p3;
-  a->m[3][0] = p4;
   if(type==0){//hermite
     m = make_hermite();
-  }else if(type==1){//bezier
+    a->m[0][0] = p1;//p0
+    a->m[1][0] = p3;//p1
+    a->m[2][0] = p2;//r0
+    a->m[3][0] = p4;//r1
+  }else{//bezier
     m = make_bezier();
+    a->m[0][0] = p1;
+    a->m[1][0] = p2;
+    a->m[2][0] = p3;
+    a->m[3][0] = p4;
   }
   matrix_mult(m,a);
   return a;
