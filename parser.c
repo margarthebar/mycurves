@@ -84,7 +84,9 @@ void parse_file ( char * filename,
     f = fopen(filename, "r");
   
   while ( (fgets(line, 256, f) != NULL) && (strcmp(command,"quit")!=0)) {
-    line[strlen(line)-1]='\0';
+    if( (line[strlen(line)-1]==' ') || (line[strlen(line)-1]=='\n')){
+      line[strlen(line)-1]='\0';
+    }
     printf(":%s: command:%s:\n",line,command);
     //printf("starting command :%s:\n",command);
     char first = line[0];
@@ -115,12 +117,15 @@ void parse_file ( char * filename,
       }
       else if(strcmp(command,"hermite")==0){
 	add_curve(pm,args[0],args[1],args[2],args[3],args[4],args[5],args[6],args[7],0.001,0);
+	printf("add_curve(pm,%G,%G,%G,%G,%G,%G,%G,%G,0.001,0)\n",args[0],args[1],args[2],args[3],args[4],args[5],args[6],args[7]);
       }
       else if(strcmp(command,"bezier")==0){
 	add_curve(pm,args[0],args[1],args[2],args[3],args[4],args[5],args[6],args[7],0.001,1);
+	printf("add_curve(pm,%G,%G,%G,%G,%G,%G,%G,%G,0.001,1)\n",args[0],args[1],args[2],args[3],args[4],args[5],args[6],args[7]);
       }
       else if(strcmp(command,"ident")==0){
 	ident(pm);
+	printf("ident(pm)\n");
       }
       else if(strcmp(command,"scale")==0){
 	struct matrix *scale = make_scale(args[0],args[1],args[2]);
@@ -147,10 +152,11 @@ void parse_file ( char * filename,
       }
       else if(strcmp(command,"display")==0){
 	color c;
-	c.red = 0;
+	c.red = MAX_COLOR;
 	c.blue = 0;
 	c.green = 0;
 	draw_lines(pm,s,c);
+	printf("display\n");
 	//display(s);
       }
     }else{
